@@ -146,7 +146,7 @@ export function sparkline(svg, entries, options) {
   const cursorX = buildElement("line", {
     class: "sparkline--cursor",
     x1: 0,
-    x2: fullWidth,
+    x2: width,
     y1: offscreen,
     y2: offscreen,
     "stroke-width": cursorWidth
@@ -159,7 +159,8 @@ export function sparkline(svg, entries, options) {
     r: spotRadius
   });
 
-  svg.appendChild(cursor);
+  svg.appendChild(cursorY);
+  svg.appendChild(cursorX);
   svg.appendChild(spot);
 
   const interactionLayer = buildElement("rect", {
@@ -171,8 +172,10 @@ export function sparkline(svg, entries, options) {
   svg.appendChild(interactionLayer);
 
   interactionLayer.addEventListener("mouseout", event => {
-    cursor.setAttribute("x1", offscreen);
-    cursor.setAttribute("x2", offscreen);
+    cursorY.setAttribute("x1", offscreen);
+    cursorY.setAttribute("x2", offscreen);
+    cursorX.setAttribute("y1", offscreen);
+    cursorX.setAttribute("y2", offscreen);
 
     spot.setAttribute("cx", offscreen);
 
