@@ -134,12 +134,21 @@ export function sparkline(svg, entries, options) {
     return;
   }
 
-  const cursor = buildElement("line", {
+  const cursorY = buildElement("line", {
     class: "sparkline--cursor",
     x1: offscreen,
     x2: offscreen,
     y1: 0,
     y2: fullHeight,
+    "stroke-width": cursorWidth
+  });
+
+  const cursorX = buildElement("line", {
+    class: "sparkline--cursor",
+    x1: 0,
+    x2: fullWidth,
+    y1: offscreen,
+    y2: offscreen,
     "stroke-width": cursorWidth
   });
 
@@ -200,8 +209,10 @@ export function sparkline(svg, entries, options) {
     spot.setAttribute("cx", x);
     spot.setAttribute("cy", y);
 
-    cursor.setAttribute("x1", x);
-    cursor.setAttribute("x2", x);
+    cursorY.setAttribute("x1", x);
+    cursorY.setAttribute("x2", x);
+    cursorX.setAttribute("y1", y);
+    cursorX.setAttribute("y2", y);
 
     if (onmousemove) {
       onmousemove(event, currentDataPoint);
